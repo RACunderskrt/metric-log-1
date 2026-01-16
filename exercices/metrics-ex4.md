@@ -11,9 +11,9 @@ Dans la classe BankAccount, il y a une 'reliabilty issue' à la ligne 163 :
 while (fileScanner.hasNextLine())
 ```
 
-Ici la variable `fileScanner` peut être `null` car elle n'est pas initialisé avant de lancer `hasNextLine`.
+Ici la variable `fileScanner` peut être `null` car elle n'est pas initialisée avant de lancer `hasNextLine`.
 
-Pour regler ce problème :
+Pour régler ce problème :
 Il faut initialiser la variable.
 
 2.
@@ -24,9 +24,9 @@ Dans la classe BankAccountApp, il a une 'security hotspot' à la ligne 80 :
 e.printStackTrace();
 ```
 
-Cette fonction de débug doit être désactivé avant de livrer le logiciel en production afin d'éviter une quelconque fuite de donnée.
+Cette fonction de débug doit être désactivée avant de livrer le logiciel en production afin d'éviter une quelconque fuite de donnée.
 
-Pour regler ce probleme :
+Pour régler ce probleme :
 Il suffit de supprimer cette ligne.
 
 3.
@@ -39,7 +39,7 @@ Dans la classe Bank, il y a une 'maintainability issue' à la ligne 24 :
 
 On essaye de ne pas laisser de code mort, même commenté, au sein du projet.
 
-Pour regler ce probleme :
+Pour régler ce probleme :
 Il suffit de supprimer cette ligne.
 
 ![newRapportSQ](./newRapportSQ.png)
