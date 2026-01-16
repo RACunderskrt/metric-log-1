@@ -1,0 +1,65 @@
+name: Java Repository Scan
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  java-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Scan Java files and generate report
+        run: |
+          set -e
+
+          REPORT="java-file-report.txt"
+
+          # Find all tracked .java files
+          JAVA_FILES=$(git ls-files '*.java' || true)
+
+          if [ -z "$JAVA_FILES" ]; then
+            echo "No .java files found in repository."
+            exit 1
+          fi
+
+          # Check for committed .class files
+          CLASS_FILES=$(git ls-files '*.class' || true)
+          if [ -n "$CLASS_FILES" ]; then
+            echo "Compiled .class files found in repository:"
+            echo "$CLASS_FILES"
+            exit 1
+          fi
+
+          echo "Java File Report" > "$REPORT"
+          echo "================" >> "$REPORT"
+          echo "" >> "$REPORT"
+
+          FILE_COUNT=0
+          TOTAL_LINES=0
+
+          echo "Per-file breakdown:" >> "$REPORT"
+
+          for file in $JAVA_FILES; do
+            LINES=$(wc -l < "$file")
+            echo "$file – $LINES" >> "$REPORT"
+            FILE_COUNT=$((FILE_COUNT + 1))
+            TOTAL_LINES=$((TOTAL_LINES + LINES))
+          done
+
+          echo "" >> "$REPORT"
+          echo "Summary:" >> "$REPORT"
+          echo "Number of .java files: $FILE_COUNT" >> "$REPORT"
+          echo "Total lines of code: $TOTAL_LINES" >> "$REPORT"
+
+          echo "Report generated:"
+          cat "$REPORT"
+
+      - name: Upload java-file-report.txt
+        uses: actions/upload-artifact@v4
+        with:
+          name: java-file-report
+          path: java-file-report.txt
