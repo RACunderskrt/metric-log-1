@@ -4,7 +4,7 @@ Dans le repository on crée un fichier .yml dans le dossier `.github/workflows/`
 Suite à l'exécution du workflow, on peut accéder au compte rendu via l'artefact que l'on a produit.
 ![workflow](./workflow.png)
 
-Contenue de l'artifact : 
+Contenu de l'artifact : 
 ```
 Java File Report
 ================
